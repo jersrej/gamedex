@@ -982,6 +982,35 @@
     transform: translateY(1px);
   }
 
+  /*
+   * The two round buttons (open, reset): darker grey caps sitting in a
+   * shallow moulded well, with real travel. Only these two are round — every
+   * other control on the unit is rectangular.
+   */
+  .deck-key-round {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 9999px;
+    background: radial-gradient(circle at 36% 28%, #a3a19d, #8a8884 58%, #76746f);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.4),
+      0 2px 0 #5f5d59,
+      0 3px 3px rgb(0 0 0 / 0.3),
+      0 0 0 3px #b3b1ab,
+      0 0 0 4px rgb(255 255 255 / 0.65);
+    transform: translateY(-1px);
+  }
+  button:active > .deck-key-round,
+  .deck-key-round[data-down="true"] {
+    background: radial-gradient(circle at 50% 60%, #8a8884, #74726d);
+    box-shadow:
+      inset 0 2px 4px rgb(0 0 0 / 0.45),
+      0 0 0 3px #b3b1ab,
+      0 0 0 4px rgb(255 255 255 / 0.65);
+    transform: translateY(1px);
+  }
+
   /* Two-position slide switch: a recessed track with a ribbed knob. */
   .switch {
     position: relative;

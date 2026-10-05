@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 
 import { DeckControl } from "@/components/console/deck-control";
+import { EjectGlyph } from "@/components/console/glyphs";
 import { describeError } from "@/components/state/error-panel";
 import { Button } from "@/components/ui/button";
 import { fetchRandomGame } from "@/features/games/api/queries";
@@ -21,7 +22,7 @@ export const RANDOM_MUTATION_KEY = ["random-game"] as const;
  * it. The stages reported are the real ones — the request ("Reading disc"),
  * then the navigation ("Data found") — with no delay added for show.
  *
- * `deck` renders the console's OPEN key; the default is an on-screen
+ * `deck` renders the console's round OPEN (eject) button; the default is an on-screen
  * button that spells the stages out.
  */
 export function SurpriseButton({
@@ -65,13 +66,14 @@ export function SurpriseButton({
           hint="Random disc"
           led={busy}
           down={busy}
+          round
           aria-label="Surprise me"
           // Stays focusable while busy; extra presses are simply ignored.
           aria-disabled={busy}
           data-sfx="disc"
           onClick={press}
         >
-          <Disc3 aria-hidden className={cn("size-5", busy && "animate-disc")} />
+          <EjectGlyph />
         </DeckControl>
         <span className="sr-only" role="status">
           {stage}

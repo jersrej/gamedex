@@ -2,21 +2,24 @@
 
 import { RotateCcw } from "lucide-react";
 
+import { PowerGlyph } from "@/components/console/glyphs";
+
 import { DeckControl } from "@/components/console/deck-control";
 import { replayBoot } from "@/features/system/boot";
 
-/** The console's RESET key: replays the power-on sequence (with sound, if on). */
+/** The console's round RESET button: restarts the unit, replaying the power-on sequence. */
 export function ResetControl({ className }: { className?: string }) {
   return (
     <DeckControl
       label="Reset"
-      hint="Replay boot"
+      hint="Restart"
+      round
       aria-label="Replay boot sequence"
       data-sfx="none"
       onClick={replayBoot}
       className={className}
     >
-      <RotateCcw aria-hidden className="size-4" />
+      <PowerGlyph />
     </DeckControl>
   );
 }

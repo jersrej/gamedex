@@ -210,8 +210,9 @@ sounds or UI.
 - A wide, low, rectangular home console in light-grey moulded plastic on a
   darker base. The top deck carries the section keys, the GameDex badge in the
   centre, an LCD and the indicator lamps. The lower deck is the front panel,
-  deliberately lopsided: rectangular RESET / OPEN / SEARCH keys, volume − / +
-  keys and a directional pad on the left; the thin line of the CD-ROM tray
+  deliberately lopsided: two round buttons — RESET (on/standby symbol) and OPEN
+  (eject symbol) — then rectangular SEARCH and volume − / + keys and a
+  directional pad on the left; the thin line of the CD-ROM tray
   door across the middle; memory-card slots over controller sockets on the
   right; the model plate in the corner.
 - From tablet up the unit is framed like a television set: broad plastic side
