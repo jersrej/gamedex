@@ -8,8 +8,8 @@ import { VolumeControl } from "@/features/system/volume-control";
 /**
  * The console's front panel, below the display. Deliberately lopsided, the
  * way home consoles of the time were: operating keys, volume and the directional pad
- * on the left, the CD-ROM tray line across the middle, memory-card slots and
- * controller sockets on the right, model plate in the corner. On the handheld
+ * on the left, the CD-ROM tray line across the middle, AV jacks, memory-card
+ * slots and controller sockets on the right, model plate in the corner. On the handheld
  * it carries the section keys instead. Its upper edge is the bottom of the
  * display bezel.
  */
@@ -18,7 +18,7 @@ export function BottomDeck() {
     <div className="deck deck-bottom">
       <div aria-hidden className="bezel-edge" />
 
-      <div className="flex h-full items-center px-[max(0.5rem,var(--shell))] pt-[var(--bezel)] pb-[0.4rem]">
+      <div className="flex h-full items-center px-2 pt-[var(--bezel)] pb-[0.4rem] md:px-5 xl:px-7">
         <div className="flex w-full flex-col md:hidden">
           <HandheldNav />
           {/* Printed along the lower edge of the handheld. */}
@@ -59,6 +59,20 @@ export function BottomDeck() {
             <span className="hidden items-center gap-3 xl:flex">
               <span className="recess h-1.5 flex-1 rounded-[1px]" />
               <span className="printed shrink-0 text-[0.5625rem]">CD-ROM</span>
+            </span>
+          </div>
+
+          {/* AV out: video and stereo audio, with the cables plugged in. Clipped
+              at the foot of the panel so the cables run off the unit. */}
+          <div
+            aria-hidden
+            className="isolate hidden shrink-0 flex-col items-center gap-2 self-stretch overflow-hidden pt-3 xl:flex"
+          >
+            <span className="printed text-[0.5rem] tracking-[0.12em]">Video · L – Audio – R</span>
+            <span className="flex gap-3">
+              {["#e9c21f", "#f2f2ee", "#d83a2c"].map((color) => (
+                <span key={color} className="rca" style={{ "--jack": color } as React.CSSProperties} />
+              ))}
             </span>
           </div>
 

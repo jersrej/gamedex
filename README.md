@@ -214,6 +214,11 @@ sounds or UI.
   keys and a directional pad on the left; the thin line of the CD-ROM tray
   door across the middle; memory-card slots over controller sockets on the
   right; the model plate in the corner.
+- From tablet up the unit is framed like a television set: broad plastic side
+  walls (with speaker grilles on wide screens) and a deep black border between
+  the frame and the picture. Phones keep a thin frame, because the screen is
+  too small to give away. The front panel also carries yellow / white / red AV
+  jacks with their cables plugged in.
 - The disc is a secondary detail: the tray line on the casing, and a small
   spinning disc on screen only while something is loading.
 - Three CSS variables describe the display opening (`--deck-top`,
@@ -288,11 +293,15 @@ sounds or UI.
   Enter, Escape or Space skips it; RESET replays it. An inline script picks the
   mode before first paint (`<html data-boot>`), so the app never flashes first
   and nothing shows without JavaScript. Preference key: `gamedex_boot_seen`.
+- **Input read-out.** After each boot sequence the display shows "VIDEO 1 /
+  NTSC" in its top-left corner for four seconds, the way a television announces
+  the source it has locked on to. It is set dressing only and hidden from
+  assistive technology.
 - **Sound and volume.** Every cue is synthesised with the Web Audio API
   (`src/lib/audio/engine.ts`); there are no audio files. Sound is **on by
   default** at level 6 of 10. The − / + keys on the casing change the level
-  one step at a time and bring up a television-style on-screen volume bar for
-  two seconds; all the way down is mute. The level is remembered in
+  one step at a time and bring up a television-style volume bar at the bottom
+  centre of the picture for two seconds; all the way down is mute. The level is remembered in
   `gamedex_volume`. Browsers block audio until the visitor has clicked or
   pressed a key, so the first gesture unlocks it — which means the boot sound
   on a first-ever visit is silent, and is normally only heard on a replay.

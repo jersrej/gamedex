@@ -97,8 +97,8 @@
   :root {
     --deck-top: 5rem;
     --deck-bottom: 6.25rem;
-    --shell: 14px;
-    --bezel: 12px;
+    --shell: 26px;
+    --bezel: 18px;
     --screen-radius: 20px;
     --bow-x: 12px;
     --bow-y: 9px;
@@ -110,12 +110,20 @@
   :root {
     --deck-top: 5.5rem;
     --deck-bottom: 6.75rem;
-    --shell: 26px;
-    --bezel: 16px;
+    --shell: 46px;
+    --bezel: 24px;
     --screen-radius: 26px;
     --bow-x: 18px;
     --bow-y: 13px;
     --bow-corner: 68px;
+  }
+}
+
+/* Wide units get the full television frame: broad side walls, deep border. */
+@media (min-width: 80rem) {
+  :root {
+    --shell: 72px;
+    --bezel: 30px;
   }
 }
 
@@ -1044,6 +1052,65 @@
     height: calc(0.4rem + env(safe-area-inset-bottom));
     background: linear-gradient(to bottom, #8f8d87, #7b7973);
     box-shadow: inset 0 1px 0 rgb(0 0 0 / 0.25);
+  }
+
+  /*
+   * Speaker grilles in the side walls, either side of the display. Two fixed
+   * strips of fine perforations; shown only where the walls are wide enough
+   * to carry them.
+   */
+  body::before,
+  body::after {
+    content: "";
+    position: fixed;
+    top: calc(var(--deck-top) + 1.5rem);
+    bottom: calc(var(--deck-bottom) + 1.5rem);
+    width: calc(var(--shell) - 26px);
+    pointer-events: none;
+    background-image: radial-gradient(circle, #8a8882 0 1px, rgb(255 255 255 / 0.5) 1.2px 1.6px, transparent 1.8px);
+    background-size: 6px 6px;
+    display: none;
+  }
+  body::before {
+    left: 13px;
+  }
+  body::after {
+    right: 13px;
+  }
+  @media (min-width: 64rem) {
+    body::before,
+    body::after {
+      display: block;
+    }
+  }
+
+  /*
+   * RCA jack with a plug seated in it: a moulded coloured plug head on a
+   * metal collar, and its cable running down off the front of the unit.
+   */
+  .rca {
+    position: relative;
+    width: 1.125rem;
+    height: 1.125rem;
+    border-radius: 9999px;
+    background:
+      radial-gradient(circle at 36% 30%, rgb(255 255 255 / 0.55), transparent 42%),
+      radial-gradient(circle, var(--jack) 0 52%, #d6d4ce 54% 70%, #8b8983 72% 100%);
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.7),
+      0 2px 3px rgb(0 0 0 / 0.35);
+  }
+  .rca::after {
+    content: "";
+    position: absolute;
+    top: 78%;
+    left: 50%;
+    width: 5px;
+    height: 4rem;
+    transform: translateX(-50%);
+    border-radius: 2px;
+    background: linear-gradient(to right, #1c1b1a, #4a4845 45%, #1c1b1a);
+    z-index: -1;
   }
 
   /* Small monochrome LCD read-out. */

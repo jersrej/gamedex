@@ -16,6 +16,8 @@ export type BootMode = "full" | "short" | "off";
 export const BOOT_SEEN_KEY = "gamedex_boot_seen";
 const SESSION_KEY = "gamedex_booted";
 export const BOOT_REPLAY_EVENT = "gamedex:boot";
+/** Fired when a boot sequence finishes or is skipped. */
+export const BOOT_END_EVENT = "gamedex:boot-end";
 
 export const BOOT_DURATION: Record<Exclude<BootMode, "off">, number> = {
   full: 2800,
@@ -32,6 +34,7 @@ export function currentBootMode(): BootMode {
 
 export function finishBoot(): void {
   document.documentElement.dataset.boot = "off";
+  window.dispatchEvent(new Event(BOOT_END_EVENT));
   try {
     window.localStorage.setItem(BOOT_SEEN_KEY, "true");
     window.sessionStorage.setItem(SESSION_KEY, "1");

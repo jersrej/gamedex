@@ -6,6 +6,7 @@ import { TopDeck } from "@/components/console/top-deck";
 import { BOOT_INLINE_SCRIPT } from "@/features/system/boot";
 import { BootSequence } from "@/features/system/boot-sequence";
 import { SoundEffects } from "@/features/system/sound-effects";
+import { InputOsd } from "@/features/system/input-osd";
 import { VolumeOsd } from "@/features/system/volume-osd";
 import { SITE_DESCRIPTION, SITE_NAME, siteUrl } from "@/lib/site";
 
@@ -88,6 +89,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <BottomDeck />
           <SoundEffects />
           <VolumeOsd />
+          <InputOsd />
         </Providers>
         {/* Both of these are sized to the display opening, not the page. */}
         <BootSequence />

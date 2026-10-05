@@ -33,7 +33,7 @@ function Badge() {
 export function TopDeck() {
   return (
     <header className="deck deck-top">
-      <div className="grid h-[calc(100%-var(--bezel))] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-1.5 px-[max(0.5rem,var(--shell))] md:gap-3 xl:gap-6">
+      <div className="grid h-[calc(100%-var(--bezel))] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-1.5 px-2 md:gap-3 md:px-5 xl:gap-6 xl:px-7">
         <div className="flex items-center justify-self-start">
           {/* Handheld: lamps sit left of the badge. */}
           <Leds className="pl-1 md:hidden" />

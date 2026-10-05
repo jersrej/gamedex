@@ -11,7 +11,7 @@ const TICKS = MAX_VOLUME * 2;
 
 /**
  * The television-style volume read-out: green "VOLUME" and a row of ticks
- * that comes up in the corner of the picture when a volume key is pressed and
+ * that comes up at the bottom centre of the picture when a volume key is pressed and
  * goes away again after two seconds. It is drawn on the display, under the
  * CRT layer, so the tube scans it like everything else. A faint dark plate
  * behind it keeps it readable over whatever the screen is showing.
@@ -39,7 +39,7 @@ export function VolumeOsd() {
       role="status"
       hidden={!visible}
       className={cn(
-        "pointer-events-none fixed bottom-[calc(var(--deck-bottom)+1.5rem)] left-[calc(var(--screen-x)+1.25rem)] z-[85] bg-black/65 px-3 py-2.5 font-mono text-[#6dff92] uppercase [text-shadow:0_0_10px_rgb(61_255_110/0.8)] sm:bottom-[calc(var(--deck-bottom)+3.5rem)] sm:left-[calc(var(--screen-x)+3.5rem)] sm:px-4 sm:py-3",
+        "pointer-events-none fixed bottom-[calc(var(--deck-bottom)+1.75rem)] left-1/2 z-[85] w-max -translate-x-1/2 bg-black/65 px-3 py-2.5 font-mono text-[#6dff92] uppercase [text-shadow:0_0_10px_rgb(61_255_110/0.8)] sm:bottom-[calc(var(--deck-bottom)+3.5rem)] sm:px-4 sm:py-3",
       )}
     >
       {/* Announced once per change; the ticks are a picture of the same number. */}
