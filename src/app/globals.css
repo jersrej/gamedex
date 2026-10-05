@@ -76,9 +76,11 @@
    * screen sits between them, inset by the shell wall plus the bezel.
    */
   --deck-top: 3.75rem;
-  --deck-bottom: calc(6.5rem + env(safe-area-inset-bottom));
+  --deck-bottom: calc(7rem + env(safe-area-inset-bottom));
   --shell: 0px;
   --bezel: 7px;
+  /* Bare plastic between a deck's controls and the edge of the monitor. */
+  --deck-gap: 4px;
   --screen-x: calc(var(--shell) + var(--bezel));
   --screen-radius: 14px;
   /* How far the picture edge bows outward at its middle (0 = flat glass). */
@@ -95,10 +97,13 @@
 
 @media (min-width: 48rem) {
   :root {
-    --deck-top: 5rem;
-    --deck-bottom: 6.25rem;
     --shell: 26px;
     --bezel: 18px;
+    --deck-gap: 12px;
+    /* Deck height = room for the controls + the gap + the bezel edge, so a
+       thicker frame can never squeeze the controls. */
+    --deck-top: calc(4.25rem + var(--deck-gap) + var(--bezel));
+    --deck-bottom: calc(5.75rem + var(--deck-gap) + var(--bezel));
     --screen-radius: 20px;
     --bow-x: 12px;
     --bow-y: 9px;
@@ -108,10 +113,11 @@
 
 @media (min-width: 64rem) {
   :root {
-    --deck-top: 5.5rem;
-    --deck-bottom: 6.75rem;
     --shell: 46px;
     --bezel: 24px;
+    --deck-gap: 20px;
+    --deck-top: calc(4.5rem + var(--deck-gap) + var(--bezel));
+    --deck-bottom: calc(6rem + var(--deck-gap) + var(--bezel));
     --screen-radius: 26px;
     --bow-x: 18px;
     --bow-y: 13px;
@@ -124,6 +130,7 @@
   :root {
     --shell: 72px;
     --bezel: 30px;
+    --deck-gap: 28px;
   }
 }
 
@@ -755,6 +762,12 @@
       opacity: 0;
       transform: scaleY(0.1);
     }
+  }
+
+  /* The input read-out belongs to the running picture, not the power-on. */
+  html[data-boot="full"] .input-osd,
+  html[data-boot="short"] .input-osd {
+    display: none;
   }
 
   /* Returning visitors get the mark and SYSTEM READY, nothing else. */

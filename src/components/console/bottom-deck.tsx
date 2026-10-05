@@ -18,7 +18,7 @@ export function BottomDeck() {
     <div className="deck deck-bottom">
       <div aria-hidden className="bezel-edge" />
 
-      <div className="flex h-full items-center px-2 pt-[var(--bezel)] pb-[0.4rem] md:px-5 xl:px-7">
+      <div className="flex h-full items-center px-2 pt-[calc(var(--bezel)+var(--deck-gap))] pb-[0.4rem] md:px-5 xl:px-7">
         <div className="flex w-full flex-col md:hidden">
           <HandheldNav />
           {/* Printed along the lower edge of the handheld. */}

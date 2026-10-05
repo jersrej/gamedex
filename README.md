@@ -293,10 +293,10 @@ sounds or UI.
   Enter, Escape or Space skips it; RESET replays it. An inline script picks the
   mode before first paint (`<html data-boot>`), so the app never flashes first
   and nothing shows without JavaScript. Preference key: `gamedex_boot_seen`.
-- **Input read-out.** After each boot sequence the display shows "VIDEO 1 /
-  NTSC" in its top-left corner for four seconds, the way a television announces
-  the source it has locked on to. It is set dressing only and hidden from
-  assistive technology.
+- **Input read-out.** The display holds "VIDEO 1 / NTSC" in its top-right
+  corner, the way a television shows the source it is locked on to. It hides
+  during the boot sequence and sits under dialogs. It is set dressing only and
+  hidden from assistive technology.
 - **Sound and volume.** Every cue is synthesised with the Web Audio API
   (`src/lib/audio/engine.ts`); there are no audio files. Sound is **on by
   default** at level 6 of 10. The − / + keys on the casing change the level
