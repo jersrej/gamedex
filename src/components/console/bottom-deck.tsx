@@ -3,11 +3,11 @@ import { DPad, HandheldNav } from "@/components/layout/nav";
 import { SearchButton } from "@/features/search/search-button";
 import { SurpriseButton } from "@/features/surprise/surprise-button";
 import { ResetControl, ResetLink } from "@/features/system/reboot-button";
-import { SoundToggle } from "@/features/system/sound-toggle";
+import { VolumeControl } from "@/features/system/volume-control";
 
 /**
  * The console's front panel, below the display. Deliberately lopsided, the
- * way home consoles of the time were: operating keys and the directional pad
+ * way home consoles of the time were: operating keys, volume and the directional pad
  * on the left, the CD-ROM tray line across the middle, memory-card slots and
  * controller sockets on the right, model plate in the corner. On the handheld
  * it carries the section keys instead. Its upper edge is the bottom of the
@@ -22,7 +22,7 @@ export function BottomDeck() {
         <div className="flex w-full flex-col md:hidden">
           <HandheldNav />
           {/* Printed along the lower edge of the handheld. */}
-          <p className="printed flex h-10 items-center justify-between gap-3 px-1 text-[0.5625rem]">
+          <div className="printed flex h-11 items-center justify-between gap-2 px-1 text-[0.5625rem]">
             <span>
               Game data:{" "}
               <a
@@ -34,8 +34,12 @@ export function BottomDeck() {
                 RAWG
               </a>
             </span>
+            <span className="flex items-center gap-1.5">
+              <span aria-hidden>Vol</span>
+              <VolumeControl compact />
+            </span>
             <ResetLink />
-          </p>
+          </div>
         </div>
 
         <div className="hidden w-full items-center gap-5 md:flex lg:gap-8">
@@ -44,7 +48,7 @@ export function BottomDeck() {
             <ResetControl />
             <SurpriseButton variant="deck" />
             <SearchButton />
-            <SoundToggle />
+            <VolumeControl />
           </div>
 
           <DPad className="hidden shrink-0 lg:grid" />

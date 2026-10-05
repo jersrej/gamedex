@@ -210,8 +210,8 @@ sounds or UI.
 - A wide, low, rectangular home console in light-grey moulded plastic on a
   darker base. The top deck carries the section keys, the GameDex badge in the
   centre, an LCD and the indicator lamps. The lower deck is the front panel,
-  deliberately lopsided: rectangular RESET / OPEN / SEARCH keys, a SOUND slide
-  switch and a directional pad on the left; the thin line of the CD-ROM tray
+  deliberately lopsided: rectangular RESET / OPEN / SEARCH keys, volume − / +
+  keys and a directional pad on the left; the thin line of the CD-ROM tray
   door across the middle; memory-card slots over controller sockets on the
   right; the model plate in the corner.
 - The disc is a secondary detail: the tray line on the casing, and a small
@@ -288,11 +288,14 @@ sounds or UI.
   Enter, Escape or Space skips it; RESET replays it. An inline script picks the
   mode before first paint (`<html data-boot>`), so the app never flashes first
   and nothing shows without JavaScript. Preference key: `gamedex_boot_seen`.
-- **Sound.** Every cue is synthesised with the Web Audio API
-  (`src/lib/audio/engine.ts`); there are no audio files. Sound is **off by
-  default**, toggled by the SOUND key and remembered in `gamedex_sound`.
-  Browsers block audio before a user gesture, so cues that cannot play are
-  skipped silently — the boot sound is normally only heard on a replay.
+- **Sound and volume.** Every cue is synthesised with the Web Audio API
+  (`src/lib/audio/engine.ts`); there are no audio files. Sound is **on by
+  default** at level 6 of 10. The − / + keys on the casing change the level
+  one step at a time and bring up a television-style on-screen volume bar for
+  two seconds; all the way down is mute. The level is remembered in
+  `gamedex_volume`. Browsers block audio until the visitor has clicked or
+  pressed a key, so the first gesture unlocks it — which means the boot sound
+  on a first-ever visit is silent, and is normally only heard on a replay.
 - **Responsive.** Desktop is the full unit; tablets get a slimmer casing; on
   phones it becomes a handheld with keys above and below the screen.
 - **Reduced motion.** With `prefers-reduced-motion`, the boot sequence is

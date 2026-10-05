@@ -6,6 +6,7 @@ import { TopDeck } from "@/components/console/top-deck";
 import { BOOT_INLINE_SCRIPT } from "@/features/system/boot";
 import { BootSequence } from "@/features/system/boot-sequence";
 import { SoundEffects } from "@/features/system/sound-effects";
+import { VolumeOsd } from "@/features/system/volume-osd";
 import { SITE_DESCRIPTION, SITE_NAME, siteUrl } from "@/lib/site";
 
 import { Providers } from "./providers";
@@ -86,10 +87,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </div>
           <BottomDeck />
           <SoundEffects />
+          <VolumeOsd />
         </Providers>
         {/* Both of these are sized to the display opening, not the page. */}
         <BootSequence />
-        <div aria-hidden className="crt" />
+        <div aria-hidden className="crt">
+          {/* The bowed outline of a domed tube face (see globals.css). */}
+          <span className="crt-bow crt-bow-x" />
+          <span className="crt-bow crt-bow-y" />
+          <span className="crt-bow crt-bow-corner" />
+        </div>
       </body>
     </html>
   );

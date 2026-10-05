@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 
+import { unlockAudio } from "@/lib/audio/engine";
 import { sfx } from "@/lib/audio/sound";
 
 const PRESSABLE = "a[href], button, [role='tab'], [role='option'], [cmdk-item]";
@@ -10,7 +11,7 @@ const PRESSABLE = "a[href], button, [role='tab'], [role='option'], [cmdk-item]";
  * Interface sounds, wired once at the document level so individual
  * components stay unaware of audio. Presses get a "select" blip unless the
  * element opts into a more specific cue with `data-sfx`, or out with
- * `data-sfx="none"`. Does nothing at all while sound is off.
+ * `data-sfx="none"`. Silent while the volume is at zero.
  */
 export function SoundEffects() {
   useEffect(() => {
@@ -29,9 +30,18 @@ export function SoundEffects() {
       if (event.key.startsWith("Arrow") && !event.repeat) sfx("move");
     };
 
+    // Browsers keep audio locked until a gesture. Unlock on the first one, so
+    // sound — on by default — starts working without the visitor doing anything
+    // special. `pointerdown` runs before `click`, so that same click is heard.
+    const unlock = () => unlockAudio();
+    document.addEventListener("pointerdown", unlock, { once: true });
+    document.addEventListener("keydown", unlock, { once: true });
+
     document.addEventListener("click", onClick);
     document.addEventListener("keydown", onKeyDown);
     return () => {
+      document.removeEventListener("pointerdown", unlock);
+      document.removeEventListener("keydown", unlock);
       document.removeEventListener("click", onClick);
       document.removeEventListener("keydown", onKeyDown);
     };

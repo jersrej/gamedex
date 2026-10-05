@@ -33,7 +33,8 @@ type Noise = { at: number; length: number; gain: number; lowpass: number };
 
 type Score = { tones: Tone[]; noise?: Noise[] };
 
-const MASTER_GAIN = 0.2;
+/** Output level at full volume. */
+const MASTER_GAIN = 0.3;
 
 const SCORES: Record<Cue, Score> = {
   // Power-on, written for GameDex — soft, low and short:
@@ -159,10 +160,10 @@ function playNoise(ctx: AudioContext, out: AudioNode, start: number, noise: Nois
 }
 
 /**
- * Plays a cue if the browser will let us. Returns whether sound was actually
- * scheduled, so callers that care (the sound toggle) can tell.
+ * Plays a cue at `volume` (0–1) if the browser will let us. Returns whether
+ * sound was actually scheduled.
  */
-export function playCue(cue: Cue): boolean {
+export function playCue(cue: Cue, volume = 1): boolean {
   const ctx = getContext();
   if (!ctx) return false;
 
@@ -173,7 +174,8 @@ export function playCue(cue: Cue): boolean {
 
   try {
     const master = ctx.createGain();
-    master.gain.value = MASTER_GAIN;
+    // Loudness is not linear in gain; the curve keeps the low steps usable.
+    master.gain.value = MASTER_GAIN * Math.max(0, Math.min(1, volume)) ** 1.6;
     master.connect(ctx.destination);
 
     const score = SCORES[cue];

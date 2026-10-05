@@ -5,7 +5,6 @@ import { Leds } from "@/components/console/leds";
 import { DeckNav } from "@/components/layout/nav";
 import { SearchButton } from "@/features/search/search-button";
 import { Signature } from "@/features/system/signature";
-import { SoundToggle } from "@/features/system/sound-toggle";
 import { Wordmark, WordmarkDescriptor } from "@/features/system/wordmark";
 
 /** The GameDex badge printed on the casing: signature bars, name, descriptor. */
@@ -46,11 +45,8 @@ export function TopDeck() {
         <div className="flex items-center gap-3 justify-self-end lg:gap-5">
           <Lcd className="hidden xl:flex" />
           <Leds className="hidden md:flex" />
-          {/* Handheld: these two keys live up here; on larger units they are on the lower deck. */}
-          <div className="flex items-center md:hidden">
-            <SoundToggle />
-            <SearchButton />
-          </div>
+          {/* Handheld: SEARCH lives up here; on larger units it is on the lower deck. */}
+          <SearchButton className="md:hidden" />
         </div>
       </div>
       <div aria-hidden className="bezel-edge" />

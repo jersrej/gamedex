@@ -76,11 +76,16 @@
    * screen sits between them, inset by the shell wall plus the bezel.
    */
   --deck-top: 3.75rem;
-  --deck-bottom: calc(6.25rem + env(safe-area-inset-bottom));
+  --deck-bottom: calc(6.5rem + env(safe-area-inset-bottom));
   --shell: 0px;
   --bezel: 7px;
   --screen-x: calc(var(--shell) + var(--bezel));
   --screen-radius: 14px;
+  /* How far the picture edge bows outward at its middle (0 = flat glass). */
+  --bow-x: 5px;
+  --bow-y: 4px;
+  /* Radius of the tube face's corners, where the bowed edges meet. */
+  --bow-corner: 26px;
 
   /* Hard edges everywhere: nothing in 1999 had a 12px radius. */
   --radius: 0px;
@@ -95,6 +100,9 @@
     --shell: 14px;
     --bezel: 12px;
     --screen-radius: 20px;
+    --bow-x: 12px;
+    --bow-y: 9px;
+    --bow-corner: 48px;
   }
 }
 
@@ -105,6 +113,9 @@
     --shell: 26px;
     --bezel: 16px;
     --screen-radius: 26px;
+    --bow-x: 18px;
+    --bow-y: 13px;
+    --bow-corner: 68px;
   }
 }
 
@@ -455,9 +466,12 @@
       inset 10px 0 18px rgb(0 0 0 / 0.35),
       inset -10px 0 18px rgb(0 0 0 / 0.35);
     background:
-      /* glass: diagonal sheen, then light caught along the top edge */
-      linear-gradient(118deg, rgb(255 255 255 / 0.075) 0%, rgb(255 255 255 / 0.02) 13%, transparent 30%),
-      radial-gradient(130% 55% at 50% -12%, rgb(255 255 255 / 0.06), transparent 60%),
+      /* glass: a curved window reflection upper-left, a diagonal sheen, light
+         caught along the top of the dome and down its left shoulder */
+      radial-gradient(46% 30% at 24% 4%, rgb(255 255 255 / 0.11), transparent 70%),
+      linear-gradient(118deg, rgb(255 255 255 / 0.07) 0%, rgb(255 255 255 / 0.02) 13%, transparent 30%),
+      radial-gradient(130% 55% at 50% -12%, rgb(255 255 255 / 0.07), transparent 60%),
+      radial-gradient(14% 80% at 0% 45%, rgb(255 255 255 / 0.05), transparent 70%),
       /* scanlines */
       repeating-linear-gradient(to bottom, transparent 0 2px, rgb(0 0 0 / 0.26) 2px 3px),
       /* phosphor mask */
@@ -468,10 +482,51 @@
         rgb(70 70 255 / 0.05) 2px 3px
       ),
       /* tube shape */
-      radial-gradient(ellipse at center, rgb(255 255 255 / 0.04) 0%, transparent 55%),
-      radial-gradient(ellipse at center, transparent 48%, rgb(0 0 0 / 0.55) 100%),
+      radial-gradient(ellipse at center, rgb(255 255 255 / 0.05) 0%, transparent 55%),
+      radial-gradient(ellipse at center, transparent 44%, rgb(0 0 0 / 0.66) 100%),
       /* grain */
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .055 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /*
+   * Convex glass. The picture on a CRT is not a rectangle: its edges bow
+   * outward in the middle and pull in at the corners, because the tube face
+   * is a dome. Three overlays draw that outline — one with elliptical left and
+   * right sides, one with elliptical top and bottom, and a third that rounds
+   * the corners where they meet — each painting bezel
+   * colour outside its own curve and a soft shadow just inside it, so the
+   * glass reads as sitting behind a deep lip.
+   *
+   * Only the *outline* is curved. The content underneath is not warped, so
+   * text stays sharp and everything stays exactly where the pointer is.
+   */
+  .crt-bow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .crt-bow-x {
+    border-radius: var(--bow-x) / 50%;
+    box-shadow:
+      0 0 0 100vmax var(--bezel-color),
+      inset 16px 0 20px -10px rgb(0 0 0 / 0.75),
+      inset -16px 0 20px -10px rgb(0 0 0 / 0.75);
+  }
+  .crt-bow-y {
+    border-radius: 50% / var(--bow-y);
+    box-shadow:
+      0 0 0 100vmax var(--bezel-color),
+      inset 0 16px 20px -10px rgb(0 0 0 / 0.75),
+      inset 0 -14px 18px -10px rgb(0 0 0 / 0.6);
+  }
+
+  /* The corners: one large radius, so the two bowed edges run into each
+     other as a single curve instead of meeting at a point. */
+  .crt-bow-corner {
+    border-radius: var(--bow-corner);
+    box-shadow:
+      0 0 0 100vmax var(--bezel-color),
+      inset 0 0 26px 2px rgb(0 0 0 / 0.55);
   }
 
   /* Brightness flutter: a faint lift that comes and goes a few times a minute. */
