@@ -5,6 +5,7 @@ import { cache } from "react";
 import { PageHeader } from "@/components/layout/page-header";
 import { BrowsePage } from "@/features/games/components/browse-page";
 import { isSlug } from "@/lib/games/filters";
+import { pageMetadata } from "@/lib/site";
 import { getPlatforms } from "@/server/games";
 
 /** Null when the platform list itself can't be loaded — the page still renders. */
@@ -24,11 +25,11 @@ export async function generateMetadata({
 }: PageProps<"/platforms/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const name = await resolve(slug);
-  return {
+  return pageMetadata({
     title: `${name} games`,
     description: `Browse games for ${name} on GameDex — filter by genre, release year and score.`,
-    alternates: { canonical: `/platforms/${slug}` },
-  };
+    path: `/platforms/${slug}`,
+  });
 }
 
 export default async function PlatformPage({

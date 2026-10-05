@@ -4,12 +4,13 @@ import { Suspense } from "react";
 import { PageHeader } from "@/components/layout/page-header";
 import { LoadingBar } from "@/components/state/loading-bar";
 import { CompareView } from "@/features/compare/compare-view";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Versus — compare games",
   description: "Put two games side by side: release, ratings, genres, platforms and studios.",
-  alternates: { canonical: "/compare" },
-};
+  path: "/compare",
+});
 
 export default function ComparePage() {
   return (

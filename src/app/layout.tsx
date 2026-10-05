@@ -8,7 +8,7 @@ import { BootSequence } from "@/features/system/boot-sequence";
 import { SoundEffects } from "@/features/system/sound-effects";
 import { InputOsd } from "@/features/system/input-osd";
 import { VolumeOsd } from "@/features/system/volume-osd";
-import { SITE_DESCRIPTION, SITE_NAME, siteUrl } from "@/lib/site";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, siteUrl } from "@/lib/site";
 
 import { Providers } from "./providers";
 import "./globals.css";
@@ -40,16 +40,42 @@ const body = Chakra_Petch({
 
 export const metadata: Metadata = {
   metadataBase: siteUrl(),
-  title: { default: `${SITE_NAME} — Find your next game`, template: `%s — ${SITE_NAME}` },
+  title: { default: `${SITE_NAME} — ${SITE_TAGLINE}`, template: `%s — ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
+  keywords: [
+    "video games",
+    "game database",
+    "game discovery",
+    "game library",
+    "game tracker",
+    "compare games",
+    "upcoming games",
+  ],
+  category: "games",
+  // Let search engines show the full-size preview image and whole snippets.
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  // One branded preview for the whole site: pages inherit this as it is.
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
-    title: `${SITE_NAME} — Find your next game`,
+    locale: "en_US",
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
   },
   twitter: { card: "summary_large_image" },
+  // Optional: the token from Google Search Console's "HTML tag" method.
+  verification: { google: process.env.GOOGLE_SITE_VERIFICATION },
 };
 
 export const viewport: Viewport = {

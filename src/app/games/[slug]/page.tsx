@@ -7,6 +7,7 @@ import { gameQueries } from "@/features/games/api/queries";
 import { GameProfile } from "@/features/games/components/game-profile";
 import { isSlug } from "@/lib/games/filters";
 import { getQueryClient } from "@/lib/query/client";
+import { pageMetadata } from "@/lib/site";
 import { isAppError } from "@/server/errors";
 import { getGame } from "@/server/games";
 import type { GameDetail } from "@/types/game";
@@ -41,27 +42,14 @@ export async function generateMetadata({
   // No data, no claims: fall back to the site defaults.
   if (!game) return { title: "Game" };
 
-  const description = summarise(game);
-  return {
+  // Title and description are the game's own (for search results). The share
+  // preview is not: every page uses the site's branded image.
+  return pageMetadata({
     title: game.title,
-    description,
-    alternates: { canonical: `/games/${game.slug}` },
-    openGraph: {
-      type: "website",
-      title: `${game.title} — GameDex`,
-      description,
-      url: `/games/${game.slug}`,
-      images: game.coverImage ? [{ url: game.coverImage, alt: game.title }] : undefined,
-    },
-    twitter: {
-      card: game.coverImage ? "summary_large_image" : "summary",
-      title: `${game.title} — GameDex`,
-      description,
-      images: game.coverImage ? [game.coverImage] : undefined,
-    },
-  };
+    description: summarise(game),
+    path: `/games/${game.slug}`,
+  });
 }
-
 /** schema.org VideoGame, built only from fields the provider actually returned. */
 function structuredData(game: GameDetail) {
   const organisations = (items: { name: string }[]) =>
